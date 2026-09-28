@@ -9,10 +9,10 @@ M.on_attach = function(_, bufnr)
 
     map("n", "gD", vim.lsp.buf.declaration, opts("Go to declaration"))
     map("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
-    map("n", "K", vim.lsp.buf.hover, opts("Hover documentation"))
+    map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, opts("Hover documentation"))
     map("n", "gi", vim.lsp.buf.implementation, opts("Go to implementation"))
     map("n", "gr", vim.lsp.buf.references, opts("Show references"))
-    map("n", "<leader>sh", vim.lsp.buf.signature_help, opts("Signature help"))
+    map("n", "<leader>sh", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, opts("Signature help"))
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts("Add workspace folder"))
     map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts("Remove workspace folder"))
 
@@ -67,7 +67,20 @@ M.defaults = function()
         virtual_text = {
             prefix = "●",
         },
-        signs = true,
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                [vim.diagnostic.severity.HINT] = "󰌶 ",
+                [vim.diagnostic.severity.INFO] = " ",
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+            },
+        },
         underline = true,
         update_in_insert = false,
         severity_sort = true,
@@ -76,18 +89,6 @@ M.defaults = function()
             source = "always",
         },
     })
-
-    -- Diagnostic signs
-    local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-    for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
-
-    -- LSP handlers
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    vim.lsp.handlers["textDocument/signatureHelp"] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)

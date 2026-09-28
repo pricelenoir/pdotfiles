@@ -169,6 +169,8 @@ return {
     -- Treesitter: language parsing, queries, modules
     {
         'nvim-treesitter/nvim-treesitter',
+        branch = 'main',
+        lazy = false,
         build = ':TSUpdate',
         config = function()
             require("config.configs.treesitter")
@@ -274,6 +276,16 @@ return {
         },
         config = function()
             require("cmp").setup(require("config.configs.cmp"))
+        end,
+    },
+
+    -- Render-markdown: in-buffer markdown rendering
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        ft = { "markdown" },
+        config = function()
+            require("render-markdown").setup({})
         end,
     },
 }
