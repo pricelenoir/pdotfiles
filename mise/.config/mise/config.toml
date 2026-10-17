@@ -1,0 +1,30 @@
+[tools]
+# Editor
+neovim = "0.12.5"
+tree-sitter = "latest"
+
+# CLI tools
+bat = "latest"
+delta = "latest"
+"github:fastfetch-cli/fastfetch" = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+lazygit = "latest"
+ripgrep = "latest"
+rtk = "1"
+starship = "latest"
+zoxide = "latest"
+
+# Python
+python = "3.13"
+uv = "latest"
+
+# Cloud & AI
+llmfit = "latest"
+supabase = "latest"
+
+# Node
+node = "24"
+"npm:ccstatusline" = "latest"
+"npm:markdown-pdf" = "latest"
