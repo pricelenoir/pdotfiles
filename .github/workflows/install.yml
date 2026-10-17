@@ -9,8 +9,6 @@ on:
       - mise/**
       - zsh/**
       - .github/workflows/install.yml
-  schedule:
-    - cron: "0 6 * * 1"
   workflow_dispatch:
 
 env:
