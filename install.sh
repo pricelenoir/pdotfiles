@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
+sudo() { if [ "$(id -u)" -eq 0 ]; then "$@"; else command sudo "$@"; fi; }
 
 case "$(uname -s)" in
 Darwin)
@@ -14,11 +15,11 @@ Linux)
     pkgs="git git-lfs tmux zsh stow curl wget jq unzip ca-certificates file less man-db wl-clipboard xclip fontconfig"
     if command -v apt-get >/dev/null; then
         sudo apt-get update
-        sudo apt-get install -y $pkgs build-essential xz-utils procps openssh-client locales
+        sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y $pkgs build-essential xz-utils procps openssh-client locales
     elif command -v dnf >/dev/null; then
         sudo dnf install -y $pkgs gcc make xz procps-ng which openssh-clients glibc-langpack-en
     elif command -v pacman >/dev/null; then
-        sudo pacman -S --needed --noconfirm $pkgs base-devel xz procps-ng which openssh
+        sudo pacman -Syu --needed --noconfirm $pkgs base-devel xz procps-ng which openssh
     else
         echo "Unsupported package manager; install manually: $pkgs" >&2
         exit 1
