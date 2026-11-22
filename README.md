@@ -47,6 +47,7 @@ git clone https://github.com/pricelenoir/pdotfiles.git ~/pdotfiles
 | `lazygit`  | `~/.config/lazygit`                   |
 | `mise`     | `~/.config/mise`                      |
 | `nvim`     | `~/.config/nvim`                      |
+| `rex`      | `~/.config/rex`                       |
 | `starship` | `~/.config/starship.toml`             |
 | `tmux`     | `~/.tmux.conf`                        |
 | `zsh`      | `~/.zshrc`, `~/.zprofile`             |
